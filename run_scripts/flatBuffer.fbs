@@ -1,0 +1,38 @@
+
+namespace ViewController;
+
+enum Interface_Type:byte {DIP , DOP , ADC}
+
+union IdentifyHardwareInterface { Mil_1553, IP_RRU, USB_RRU}
+
+
+table Mil_1553  {
+	rt:ushort;
+	subaddress:ushort;
+	direction:ushort;
+	wordcount:ushort;
+	payload:[ushort];
+	frequency:short;
+}
+
+table IP_RRU   {
+        i_type:Interface_Type = DOP;
+	slot:ushort;
+	port:ushort;
+	channel:ushort;
+	value:short;
+	value2:float
+}
+
+table USB_RRU   {
+        i_type:Interface_Type = DOP;
+	channel:short;
+	value:short;
+}
+
+
+table Transaction {
+  queryOnInterface:IdentifyHardwareInterface;
+}
+
+root_type Transaction;
